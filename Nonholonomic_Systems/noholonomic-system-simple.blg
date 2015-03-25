@@ -1,0 +1,47 @@
+This is BibTeX, Version 0.99d (TeX Live 2014)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: noholonomic-system-simple.aux
+The style file: model3-num-names.bst
+Database file #1: nonholonomic.bib
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+You've used 10 entries,
+            3023 wiz_defined-function locations,
+            702 strings with 6125 characters,
+and the built_in function-call counts, 7514 in all, are:
+= -- 614
+> -- 102
+< -- 9
++ -- 60
+- -- 28
+* -- 782
+:= -- 982
+add.period$ -- 30
+call.type$ -- 10
+change.case$ -- 47
+chr.to.int$ -- 10
+cite$ -- 10
+duplicate$ -- 698
+empty$ -- 719
+format.name$ -- 48
+if$ -- 1505
+int.to.chr$ -- 1
+int.to.str$ -- 11
+missing$ -- 103
+newline$ -- 63
+num.names$ -- 30
+pop$ -- 151
+preamble$ -- 1
+purify$ -- 50
+quote$ -- 0
+skip$ -- 151
+stack$ -- 0
+substring$ -- 754
+swap$ -- 309
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 54
+warning$ -- 0
+while$ -- 33
+width$ -- 0
+write$ -- 149

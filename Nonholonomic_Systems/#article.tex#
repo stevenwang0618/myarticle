@@ -1,0 +1,132 @@
+% This document is for AJP.
+\documentclass[prb,preprint]{revtex4-1}
+% The line above defines the type of LaTex document.
+
+% The % character begins a comment, which continues to the end of the line.
+
+\usepackage{amsmath}  % needed for \tfrac, \bmatrix, etc.
+\usepackage{amsfonts} % needed for bold Greek, Fraktur, and blackboard bold
+\usepackage{amssymb}  % needed for symbol
+\usepackage{graphicx} % needed for figures
+
+
+%
+\newcommand{\dr}{\delta \mathbf{r}}
+\newcommand{\dq}{\delta q}
+\newcommand{\sumin}{\sum_{i=1}^{n}}
+\newcommand{\sumiN}{\sum_{i=1}^{3N}}
+
+%% Main Body
+
+\begin{document}
+
+% Be sure to use the \title, \author, \affiliation, and \abstract macros to format your title page. Don't use lower-level macros to manually adjust the fonts and centering.
+
+\title{Nonholonomic Systems}
+% In a long title you can use \\ to force a line break at a certain location.
+
+\author{Dingwen Wang}
+\email{wangdingwen0618@gmail.com}
+%\altaffiliation[permanent address:]{}
+% If there were a second author at the same address, we would put another \author{} statement here. Don't combine multiple authors in a single \author statement
+\author{Puyun Gao}
+\email{gfkdgpy@hotmail.com}
+\affiliation{School of Aerospace Science and Engineering, National University of Defence Technology, Changsha, Hunan, China 410072}
+% Please provide a full mailing addressing here.
+
+\date{\today}
+%% Abstract
+\begin{abstract}
+  We start from the fundamental concept used in classical dynamics.
+\end{abstract}
+
+\maketitle
+
+
+\section{Introduction} % Section titles are automatically converted to all-caps.
+% Section numbering is automatic
+
+Examine d'Alembert-Lagrange method.  Let us begin with Newton's law of
+motion applied to a system of $N$ particles. For the $i$th particle of
+mass $m_i$ and inertial position $\vec{r}_i$, we have
+
+\begin{equation}
+  \vec{F}_i + \vec{R}_i - m_i \ddot{\vec{r}}_i = 0
+\end{equation}
+
+$\vec{F}_i$ is the impressed force and $\vec{R}_i$ is the constraint
+force. Multiply virtual displacement $\delta \vec{r}_i$ and sum over
+$i$. We obtain
+
+ \begin{equation}
+   \label{eq:dalembert-principle}
+   \sum_{i=1}^{N}( \vec{F}_i + \vec{R}_i - m_i \ddot{\vec{r}}_i) \cdot \delta \vec{r}_i = 0
+ \end{equation}
+
+ the result is valid for arbitrary $\delta r$s; but now assume $\delta
+ r$s satisfy the virtual constraint equations, that is,
+
+\begin{equation}
+  \label{eq:idealconstraints}
+  \sum_{i=1}^N \vec{R}_i \cdot \delta \vec{r}_i = 0
+\end{equation}
+
+then we obtain
+\begin{equation}
+  \label{eq:dalembert-principle-1}
+  \sum_{i=1}^N(\vec{F}_i - m_i \ddot{\vec{r}}_i) \cdot \delta \vec{r}_i = 0,
+\end{equation}
+
+In terms to Cartesian coordinates, we have the form
+\begin{equation}
+  \label{eq:dalembert-principle-cartesian}
+  \sum_{k=1}^{3N} (F_k - m_k \ddot{x}_k)\delta x_k = 0.
+\end{equation}
+
+$\delta x$s satisfy $\sum_{k=1}^{3N}R_k \delta x_k = 0$.
+
+\section{Lagrange's Equations}
+\label{sec:lagrangeeom}
+
+We start from d'Alembert Principle. 
+
+\subsection{D'Alembert's Principle}
+Let consider a system of $N$ particles and write the equation of motion for each particle in the form
+\begin{equation}
+  \label{eq:dalembert}
+  \mathbf{F}^{e}_i + \mathbf{F}^{c}_i - m_i\mathbf{\ddot{r}}_i = 0
+\end{equation}
+where $\mathbf{F}^{e}_i$ is the external force and $\mathbf{F}^{c}_i$ is the constraint force acting on the particle. As we know, $-m_i\mathbf{\ddot{r}}_i$ is the inertial force, acting on the $i$th particle, where $m_i$ is the constant mass and $\mathbf{\ddot{r}}_i$ is its acceleration relative to an inertial frame.
+
+The total work done by all the forces in an arbitrary virtual displacement is 
+%\begin{equation}
+
+%\delta W = \sum_{i=1}^{3N}{ \left(\mathbf{F}^{e}_i + \mathbf{F}^{c}_i - m_i \mathbf{\ddot{r}}_i \right) \cdot \dr_i} = 0
+%\end{equation}
+
+If we now assume the $\mathbf{F}^{c}_i$ are workless constraint forces
+
+
+A virtual displacement $\dr_i$ is an assumed infintesimal change of system coordinates occurring while time is held constant. It is called virtual rather than real since no actual displacement can take place without the passage of time.
+\section{Variational Principle for Nonholonomic Systems}
+\label{sec:variational}
+Hamilton's Principle is viewed as an integrated form of D'Alembert's
+principle in essence.
+
+Conventionally, Hamilton's principle is not applicable to nonholonomic
+system, since the varied path here is not the geometrical possible
+path which conforms to the constraints. Of course, it is used in
+holonomic system. But it seems that the only reason we use it in
+holonomic system is it gives the same equations of motion as the ones
+offered by D'Alembert's principle in a more convenient way.
+
+
+\section{Comparison}
+\label{sec:comparison}
+
+
+\end{document}
+
+
+
+

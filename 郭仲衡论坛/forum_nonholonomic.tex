@@ -1,0 +1,329 @@
+%-*- coding: UTF-8 -*-
+% forum_nonholonomic.tex
+\documentclass[a4paper,UTF8,11pt,hyperref]{ctexart}
+%\usepackage{sagetex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  packages
+%    这部分声明需要用到的包
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{CJK}         % CJK 中文支持
+%\usepackage{fancyhdr}
+\usepackage{amsmath,amsfonts,amssymb,graphicx}    % EPS 图片支持
+\usepackage{subfigure}   % 使用子图形
+\usepackage{indentfirst} % 中文段落首行缩进
+\usepackage{bm}          % 公式中的粗体字符（用命令\boldsymbol）
+\usepackage{multicol}    % 正文双栏
+%\usepackage{picins}      % 图片嵌入段落宏包 比如照片
+\usepackage{abstract}    % 2栏文档，一栏摘要及关键字宏包
+\usepackage{hyperref}    % 超链接
+\newcommand{\mathd}{\mathrm{d}}
+%\newcommand{\degree}{^\circ}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  lengths
+%    下面的命令重定义页面边距，使其符合中文刊物习惯。
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\addtolength{\topmargin}{-54pt}
+\setlength{\oddsidemargin}{-0.9cm}  % 3.17cm - 1 inch
+\setlength{\evensidemargin}{\oddsidemargin}
+\setlength{\textwidth}{16.00cm}
+\setlength{\textheight}{24.00cm}    % 24.62
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  定义标题格式，包括title，author，affiliation，email等。
+%  在任何用到中文的地方，用\begin{CJK} ... \end{CJK}将其括起来。
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand{\baselinestretch}{1.1} %定义行间距
+\parindent 22pt %重新定义缩进长度
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 标题，作者，通信地址定义
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\CJKfamily{song}
+\title{\huge{Hamilton原理与非完整系统}}
+\author{王定文\footnote{Email:wangdingwen0618@gmail.com}, 高普云, 胡靖\\[2pt]
+\normalsize
+(国防科技大学宇航科学与工程系, 湖南省~长沙市~410072)}
+
+\date{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 正文开始
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\newcommand{\supercite}[1]{\textsuperscript{\cite{#1}}}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 摘要
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  中文摘要
+%  调整摘要、关键词，中图分类号的页边距
+%  中英文同时调整
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\oddsidemargin}{ 1cm}  % 3.17cm - 1 inch
+\setlength{\evensidemargin}{\oddsidemargin}
+\setlength{\textwidth}{13.50cm}
+\vspace{-.8cm}
+\begin{center}
+\parbox{\textwidth}{
+\heiti 摘~~~要\quad \kaishu~本文对非完整系统中一些基本问题，例如Hamilton原理的适用性、Chetaev条件以及微分变分运算的交换性，进行了探讨。通过解除非完整系统Lagrange函数中的约束，直接应用Hamilton原理得到系统不带Lagrange乘子的运动方程。这种方法不要求对虚位移施加额外的限制条件，同时在得到运动方程的过程中也只需要微分与变分的交换性对独立变量成立。这种方法得到的运动方程不同于已有的结论。\\
+\heiti 关键词\quad\kaishu 非完整力学，微分与变分运算交换性，Cheteav条件，Hamilton原理}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  正文由此开始－－－－－－－－－－－－－－－－－－－－－－－－－
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  恢复正文页边距
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\oddsidemargin}{-.5cm}  % 3.17cm - 1 inch
+\setlength{\evensidemargin}{\oddsidemargin}
+\setlength{\textwidth}{17.00cm}
+\songti
+
+\section{引言}\label{sec:intro}
+时至今日，非完整力学仍然获得广泛的观注\supercite{borisov2002,cronstrom2009,flannery2005,Flannery201102,Flannery2011,Gao2005}。处理非完整系统问题经常从两个基本原理出发，即D'Alembert-Lagrange原理和Hamilton原理。在完整系统范畴内，这两个原理是等价的，从它们可以推导出一样的运动方程。但是不幸的是，对于非完整系统这两个原理并不一致\supercite{cronstrom2009,flannery2005}。D'Alembet-Lagrange原理比Hamilton原理更基础似乎得到广泛的认同\supercite{flannery2005}。\cite{flannery2005}就认为广义的Hamilton原理不适用于非完整系统，不但如此作者还认为即使是D'Alembert-Lagrange原理对于一般的非完整约束也是不可行的。
+
+%$\sage{matrix([[1, 2], [3,4]])^2}$
+
+本文也将讨论到Hamilton原理是否适用于非完整系统的问题。我们认为事实上在非完整系统中是没有坚实的理由只接受D'Alembert-Lagrange原理而排除Hamilton原理。
+在这个基础上，我们仿照在完整系统中的处理方法，通过解除非完整系统Lagrange函数中的约束，直接应用Hamilton原理得到系统不带Lagrange乘子的运动方程。这种方法不要求对虚位移施加额外的限制条件，同时在得到运动方程的过程中也只需要微分与变分的交换性对独立变量成立。这种方法对于一般的非完整约束是适用的。
+
+
+\section{Chetaev条件再探讨}
+设系统受到的完整约束为
+\begin{equation}
+  f_i  ( q, t) = 0 , \hspace{2em} ( i = 1, \cdots , k).
+  \label{eq:hc}
+\end{equation}
+这个约束的速度形式为
+\begin{equation}
+\dot{f}_i ( q, t) = \sum^n_{j = 1} \frac{\partial f_i}{\partial q_j}
+   \dot{q}_j + \frac{\partial f_i}{\partial t}, \hspace{2em} ( i = 1, \cdots,
+   k) .\label{eq:hcv}
+\end{equation}
+又假设还存在如下的线性非完整约束
+\begin{equation}
+  \sum_{j = 1}^n a_{m j} ( q ; t) \dot{q}_j + b_m ( t) = 0 \hspace{2em} ( m =
+  1, \cdots, s), \label{eq:nhc}
+\end{equation}
+一般的认为，变分$\delta q_j$要满足如下条件
+\begin{equation}\label{chetaev}
+  \sum_{j = 1}^n a_{m j} ( q ; t) \delta q_j = 0 \hspace{2em} ( m = 1,
+   \cdots, s),
+\end{equation}
+这就是所谓的Chetaev条件。
+
+使用Lagrange乘子$\lambda$，根据D'Alembert-Lagrange原理，运动方程有如下形式
+\begin{equation}\label{linearnheom}
+  \frac{\mathd}{\mathd t} \left( \frac{\partial L}{\partial \dot{q}_j}
+   \right) - \frac{\partial L}{\partial q_j} = \sum_{i = 1}^k \lambda_i a_{i
+   j} \hspace{2em} ( j = 1, \cdots, n) .
+\end{equation}
+$L$是系统的Lagrange函数。但是这样得来的方程不同于基于广义D'Alembert-Lagrange原理和Hamilton原理得到的方程\supercite{cronstrom2009}。通常认为D'Alembert-Lagrange原理是比Hamilton原理更加基本的原理。在这样的线性非完整系统中，D'Alembert-Lagrange原理仍然适用。然而对于一般的非完整约束，即使是D'Alembert-Lagange原理也无能为力\supercite{flannery2005}。
+
+其实应用Lagrange乘子法得到运动方程的关键在于要能够从系统约束方程中知道广义坐标变分之间的线性关系。上述所说的Chetaev条件正是起这样的作用。但是这样的线性关系如Cheteav条件的成立是有争议的\supercite{guo1994}，它们更像是某种预先假设的附加条件而不是根据其他原理逻辑推导的结果。
+
+例如在线性非完整系统中，通常认为\eqref{chetaev}是由\eqref{eq:nhc}得到的。将\eqref{eq:nhc}写成如下形式
+\begin{equation}
+  \sum_{j = 1}^n a_{m j} ( q ; t) \mathd q_j + b_i ( t) \mathd t= 0 \hspace{2em} ( m =
+  1, \cdots, s)
+\end{equation}
+通过使用虚位移，即认为$\mathd t=0$ and $\mathd q_j = \delta q_j$，就得到了\eqref{chetaev}。但是这里的问题在于，微分与变分是两个完全不同的运算。$\mathd q_j$是在$\mathd t$时间内的位移，它是由$\mathd q_j=\dot{q}_j \mathd t$定义的。如果认为$\mathd t=0$，那么$\mathd q_j$也必须等于零。
+
+其实对于约束进行变分，得到的是如下关系
+\begin{equation}
+  \sum_{j = 1}^n a_{m j}  \delta \dot{ q}_j +  \sum_{j = 1,k=1}^n \frac{\partial a_{m j} }{\partial q_k} \dot{ q}_j \delta q_k +\sum_{k=1}^n \frac{\partial b_m }{\partial q_k}\delta q_k = 0 \hspace{2em} ( m =
+  1, \cdots, s),
+\end{equation}
+坐标的变分与其导数之间并无关系。虽然\eqref{chetaev}在得到系统运动方程方面起着重要作用，但它们的成立并没有坚实的理论基础。从这个角度说, 在线性非完整约束中使用D'Alembert-Lagrange原理也是值得怀疑的，或者换句话说，并没有理论上的依据认为D'Alembert-Lagrange原理就比Hamilton原理更加正确。
+
+一些文献仍试图推导~Chetaev条件。而条件的成立则依赖于“虚位移”的定义。例如在\cite{markeyev}中，某时刻如果构成系统的各点的构形满足几何约束\eqref{eq:hc},则称在该时刻系统处于\textbf{可能位置}。
+当系统在给定时刻处于可能位置时，满足线性方程\eqref{eq:hcv}和\eqref{eq:nhc}的广义速度集合称为该时刻的\textbf{可能速度}。
+
+如果在给定时刻$t=t^*$系统处于某个可能位置$q=q^*$，并具有可能速度$\dot{q}=\dot{q}^*$，则认为系统在$\delta t$时间内的可能位移为
+\begin{equation}\label{eq:pd}
+\Delta q_j=\dot{q}_j^* \Delta t\quad(j=1,\cdots,n)
+\end{equation}
+这里忽略了$\Delta t$的高次项。
+设某时刻$t=t^*$系统处于可能位置$q=q^*$，考虑在相同$\Delta t$内2个可能位移。根据\eqref{eq:pd}，
+\begin{equation}\label{eq:pd1}
+\Delta_1 q_j=\dot{q}_{j1}^* \Delta t, \Delta_2 q_j=\dot{q}_{j2}^* \Delta t\quad(j=1,\cdots,n)
+\end{equation}
+它们的可能速度$\dot{q}_{js}^*\,(s=1,2)$均满足\eqref{eq:hcv}和\eqref{eq:nhc}。将$t=t^*,q=q^*,\dot{q}_j=\dot{q}_{j1}^*$代入\eqref{eq:hcv}并在方程两边同时乘以$\Delta t$，然后将$t=t^*,q=q^*,\dot{q}_j=\dot{q}_{j2}^*$代入\eqref{eq:hcv}并在方程两边同时乘以$\Delta t$，将两个方程相减，得
+\begin{equation}\label{eq:pd2}
+ \sum^n_{j = 1} \frac{\partial f_i}{\partial q_j}
+   (\dot{q}_{j1}^* -\dot{q}_{j2}^*)\Delta t=0, \hspace{2em} ( i = 1, \cdots,
+   k) .
+\end{equation}
+通过相同的方法，由\eqref{eq:nhc}可得
+\begin{equation}\label{eq:pd3}
+  \sum_{j = 1}^n a_{m j} ( q ; t) (\dot{q}_{j1}^*-\dot{q}_{j2}^*)\Delta t = 0 \hspace{2em} ( m =
+  1, \cdots, s), 
+\end{equation}
+而又根据\eqref{eq:pd1},两组可能位移相减得
+\begin{equation}
+\Delta_1 q_j-\Delta_2 q_j=(\dot{q}_{j1}^* -\dot{q}_{j2}^* )\Delta t,\quad(j=1,\cdots,n)
+\end{equation}
+若$\delta\dot{q}_j=\dot{q}_{j1}^* -\dot{q}_{j2}^*\neq0$，则认为
+\begin{equation}
+\delta q_j=\delta\dot{q}_j\Delta t\quad(j=1,\cdots,n)
+\end{equation}
+是虚位移，它须满足\eqref{eq:pd2}和\eqref{eq:pd3}。
+
+
+\eqref{eq:pd3}也就是通常所谓的Cheteav条件，也就是说在线性非完整约束下，这样的虚位移定义已经暗含了Cheteav条件成立。既然是定义，则Cheteav条件就不是推导的结果。对于一般的非完整约束，是否仍然可以这样定义虚位移是值得怀疑的，即使这样的定义成立，Cheteav条件仍然是一种假设，而不是逻辑推导的结果。
+
+\section{$d-\delta$交换性与Hamilton原理}
+如果我们使用Lagrange乘子法来推导运动方程，无论采用何种原理都不可避免要遇到广义坐标的变分与微分的交换性问题。这个问题同样存在不同的看法\supercite{mei1985,mei1987,Flannery201102}。
+
+独立广义坐标的微分与变分的交换性一般认为是合理的。我们如果直接从Hamilton原理出发，将Lagrange函数只表示为独立广义坐标及其各阶导数的函数，那我们就不需要对虚位移的特殊假设就可以推导系统的运动方程。
+
+为简单起见，先考虑如下的非完整约束，
+\begin{equation}
+  q_i = \varphi_i  ( q_{k + 1}, \cdots, q_n ; \dot{q}_{k + 1}, \cdots,
+  \dot{q}_n) \hspace{2em} ( i = 1, \cdots, k), \label{constraint}
+\end{equation}
+在这里$q_k+1,\cdots,$ 和$q_n$是独立变量，而函数$\varphi_i $各阶导数均连续。
+我们可以很容易的得到$q_i$的导数，
+\begin{equation}
+  \dot{q}_i = \sum^n_{\mu = k + 1} \frac{\partial \varphi_i}{\partial q_{\mu}}
+  \dot{q}_{\mu}  + \sum^n_{\mu = k + 1} \frac{\partial
+  \varphi_i}{\partial \dot{q}_{\mu}} \ddot{q}_{\mu} \hspace{1em} ( i = 1,
+  \cdots, k) . \label{der}
+\end{equation}
+设系统的Lagrange函数在不考虑约束的情况下可以表示为如下形式
+\begin{equation}
+  L = L ( q_1, \cdots, q_n ; \dot{q}_1, \cdots, \dot{q}_n ; t) .
+  \label{lagrangian}
+\end{equation}
+
+把\eqref{constraint} 和 \eqref{der} 代入到 \eqref{lagrangian}，那么这时的Lagrange函数变为
+\[ \Theta ( q_{k + 1}, \cdots, q_n ; \dot{q}_{k + 1}, \cdots, \dot{q}_n ;
+   \ddot{q}_{k +1}, \cdots, \ddot{q}_n ; t) = L ( q_1, \cdots, q_n ;
+   \dot{q}_1, \cdots, \dot{q}_n ; t) . \]
+我们注意到代入后的Lagrange函数$\Theta$中只含有独立变量及其一、二阶导数。此时的Lagrange函数已经解除了约束。
+根据Hamilton原理，系统的真实路径是使得作用量取极值的路径，因此我们有
+\begin{equation}
+\delta \int_{t_0}^{t_1} L \mathd t = \delta \int_{t_0}^{t_1} \Theta ( q_{k
+   + 1}, \cdots, q_n ; \dot{q}_{k + 1}, \cdots, \dot{q}_n ; \ddot{q}_{k + 1},
+   \cdots_{}, \ddot{q}_n, t) \mathd t = 0,
+\end{equation}
+此时$q_\mu(\mu=k+1,\cdots,n)$是独立变量。
+
+假设有端部条件$\delta q ( t_0) = \delta q ( t_1) = 0$ 和$\delta
+\dot{q} ( t_0) = \delta \dot{q} ( t_1) = 0$，根据变分运算的法则，我们可以得到
+\begin{equation}
+ \int_{t_0}^{t_1}  \sum_{\mu = k + 1}^n \left[ \frac{\partial
+   \Theta}{\partial q_{\mu}} - \frac{\mathd}{\mathd t} \frac{\partial
+   \Theta}{\partial \dot{q}_{\mu}} + \frac{\mathd^2}{\mathd t^2} \left(
+   \frac{\partial \Theta}{\partial \ddot{q}_{\mu}} \right) \right] \delta
+   q_{\mu} \mathd t = 0.
+\end{equation}
+
+而由于变分$\delta q_{\mu}  ( \mu = k + 1, \cdots, n)$ 是独立和任意的，不难得到如下的运动方程
+\begin{equation}\label{modeleqn}
+  \frac{\partial \Theta}{\partial q_{\mu}} - \frac{\mathd}{\mathd t}
+  \frac{\partial \Theta}{\partial \dot{q}_{\mu}} +
+  \frac{\mathd^2}{\mathd t^2} \left( \frac{\partial \Theta}{\partial
+  \ddot{q}_{\mu}} \right) = 0 \hspace{2em} ( \mu = k + 1, \cdots, n) .
+\end{equation}
+这里得到的方程不同于通过Lagrange乘子得到的方程。在这里Lagrange函数中解除了约束，并且直接运用Hamilton原理，而这正与通常在完整系统中所做的一样。这样的处理方法显示了某种统一性。
+
+现在具体考虑一个这种类型的例子--斜面上的雪撬\supercite{Neimark}。系统的非完整约束方程为
+\begin{equation}
+  \dot{y} = \dot{x} \tan \varphi . \label{examplecon}
+\end{equation}
+如果设$x$和$y$是独立变量，则\eqref{examplecon}可以写为
+\begin{equation}
+  \varphi = \Phi ( \dot{x}, \dot{y}) =  \arctan \frac{\dot{y}}{\dot{x}}.
+  \label{examplecon1}
+\end{equation}
+系统的Lagrange函数为
+\begin{equation}
+  L = \frac{1}{2} m \left[ \dot{x}^2 + \dot{y}^2  + J \dot{\varphi}^2 + 2 a
+  \dot{\varphi} ( \dot{y} \cos \varphi - \dot{x} \sin \varphi)\right] + m g x \sin\alpha,
+\end{equation}
+其中$m, a, J$和$\alpha$是常数。从\eqref{examplecon1}中可以得到$\varphi$的导数
+\begin{equation}
+  \dot{\varphi}=\frac{\dot{x} \ddot{y}-\dot{y} \ddot{x}}{\dot{x}^2+\dot{y}^2}.
+\end{equation}
+将约束代入后，Lagrange函数变为
+\begin{equation}\label{examplelagrangian}
+\begin{array}{rcl}
+  \Theta&=&\frac{1}{2} m \left[ \dot{x}^2 + \dot{y}^2  + J \dot{\varphi}^2\right]+ m g x \sin\alpha\\[6pt]
+        &=&\frac{1}{2} m \left[ \dot{x}^2 + \dot{y}^2  + J \left( \frac{\dot{x} \ddot{y}-\dot{y} \ddot{x}}{\dot{x}^2+\dot{y}^2}\right)^2\right]+ m g x \sin\alpha.
+\end{array}
+\end{equation}
+此时的Lagrange函数中只包含独立的坐标。因此运动方程可写为
+\begin{equation}\label{exampleeuler}
+\left\{\begin{array}{rcl}
+    \frac{\partial \Theta}{\partial x} - \frac{\mathd}{\mathd t}
+  \frac{\partial \Theta}{\partial \dot{x}} +
+  \frac{\mathd^2}{\mathd t^2} \left( \frac{\partial \Theta}{\partial
+  \ddot{x}} \right)&=&0\\[6pt]
+  \frac{\partial \Theta}{\partial y} - \frac{\mathd}{\mathd t}
+  \frac{\partial \Theta}{\partial \dot{y}} +
+  \frac{\mathd^2}{\mathd t^2} \left( \frac{\partial \Theta}{\partial
+  \ddot{y}} \right)&=&0\\
+  \end{array}\right.
+\end{equation}
+不难证明如下关系式
+\begin{equation}
+\left\{\begin{array}{ccc}
+   \frac{\partial \Theta}{\partial x}= m g \sin\alpha,&\hspace{2em}&\frac{\partial \Theta}{\partial \ddot{x}}=\frac{m J \dot{y}(\dot{y}\ddot{x}-\dot{x}\ddot{y})}{(\dot{x}^2+\dot{y}^2)^2}\\[6pt]
+   \frac{\partial \Theta}{\partial y}= 0 ,&\hspace{2em}& \frac{\partial \Theta}{\partial \ddot{y}}=\frac{m J \dot{x}(\dot{x}\ddot{y}-\dot{y}\ddot{x})}{(\dot{x}^2+\dot{y}^2)^2}\\
+  \end{array}\right.
+\end{equation}
+$\frac{\partial \Theta}{\partial \dot{x}}$和$\frac{\partial \Theta}{\partial \dot{y}}$表达式较为复杂，但它们仍然可以从\eqref{examplelagrangian}得到。因此\eqref{exampleeuler}中所有项都可以表示为$x, y$和它们的各阶导数的函数。只要给定了与约束\eqref{examplecon}相协调的初始条件，那么\eqref{exampleeuler}是可解的。
+\section{一般约束}
+上节所用的方法对于一般的非完整约束也同样适用。
+考虑如下的约束
+\begin{equation}
+g_i(q;\dot{q};t)=0,\hspace{2em}i=1,\cdots,n-k.
+\end{equation}
+如果Jacobi行列式
+\[
+\frac{\partial (g_1,\cdots,g_{n-k})}{\partial (\dot{q}_{k+1},\cdots,\dot{q}_n)}\neq0.
+\]
+我们可以将$\dot{q}_{k+i}$解出来
+\begin{equation}\label{eq:gde}
+\dot{q}_{k+j}=\varphi_j(q_1,\cdots,q_n;\dot{q}_1,\cdots,\dot{q}_k;t),\hspace{2em}j=1,\cdots,n-k.
+\end{equation}
+上式可以看作是关于$q_{k+j}$的微分方程。根据微分方程理论，原则上我们可以解此微分方程，得到
+\begin{equation}\label{eq:gde1}
+q_{k+j}=\psi_j(q_1,\cdots,q_k;\dot{q}_1,\cdots,\dot{q}_k;t)
+\end{equation}
+此时$q_{k+j}$的导数可以表示为
+\begin{equation}\label{eq:gde2}
+\dot{q}_{k+j}=\sum_{i=1}^k{\frac{\partial \psi_j}{\partial q_i}}\dot{q}_i+\sum_{i=1}^k{\frac{\partial \psi_j}{\partial \dot{q}_i} \ddot{q}_i}
+\end{equation}
+同上一节的处理方法一样，此时将\eqref{eq:gde1}和\eqref{eq:gde2} 代入Lagrange函数中，然后直接将Hamilton原理作用于解除了约束的Lagrange函数$\Theta$。通过变分运算，最终我们将得到与\eqref{modeleqn}相类似的运动方程。只要给定与约束方程相协调的初始条件，那么整个系统就是可以求解的了。
+
+得到运动方程需要知道Lagrange函数$\Theta$的具体表达式，而要写出这个表达式有赖于求出$\frac{\partial \psi_j}{\partial q_i}$和$\frac{\partial \psi_j}{\partial \dot{q}_i}$，而这两个偏导数的计算则有基于微分方程\eqref{eq:gde}的求解。因此对于一般的非完整系统，得到系统的运动方程最终归结为求解微分方程\eqref{eq:gde}，而上一节正好对应于\eqref{eq:gde}比较容易解出的情况。
+
+
+\section{结论}
+本文给出了通过Hamilton原理直接得到非完整系统运动方程的方法。主要的思想是将非完整约束嵌入到系统的Lagrange函数中，从而使得Lagrange函数只含独立变量及其一、二阶导数。此时的Lagrange函数是解除了约束的，如同在完整系统中一样，我们直接应用Hamilton原理就可以得到系统的微分方程。这种方法不需要对系统的虚位移有附加的约束，也绕过了对非独立变量微分与变分交换性是否成立的争论，具有明显的直观性。
+
+
+
+
+
+
+\bibliographystyle{plain}
+\bibliography{nonholonomic}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

@@ -1,0 +1,110 @@
+\documentclass[a4paper]{article}      % The type of the document.
+\usepackage{latexsym,bm,amsthm,amsmath,fancyhdr}
+\setlength{\voffset}{-15.4mm}
+\setlength{\textwidth}{150mm}
+\begin{document}
+\begin{equation}\label{K}
+    \begin{split}
+    w_1(x,y)&=w_0(x,y)+A(x-iy)+iyA_1(x-iy)\\
+    w(x,y)&=w_1(x,y)+(1-\frac{y}{b})[\alpha(x+iy)-\alpha(x-iy)]+\frac{y}{b}[\beta(x+iy)-\beta(x-iy)]-2iy\alpha'(x-iy)
+    \end{split}
+\end{equation}
+\section{$w(0,y)=0$}
+Since  we have the boundary condition $w(0,y)=0$, we get
+    \begin{equation} (1-\frac{y}{b})[\alpha(iy)-\alpha(-iy)]+\frac{y}{b}[\beta(iy)-\beta(-iy)]-2iy\alpha'(-iy)=-w_1(0,y)
+    \end{equation}
+Assume that
+    \begin{equation}\label{A}
+    (1-\frac{y}{b})\alpha(iy)+\frac{y}{b}\beta(iy)=\phi(iy)
+    \end{equation}
+
+we have
+    \begin{equation}
+    (1-\frac{y}{b})\alpha(-iy)+\frac{y}{b}\beta(-iy)+2iy\alpha'(-iy)=w_1(0,y)+\phi(iy)
+    \end{equation}
+
+Replace $y$ by $-y$ in the previous equation, then we can get
+    \begin{equation}\label{B}
+    (1+\frac{y}{b})\alpha(iy)-\frac{y}{b}\beta(iy)-2iy\alpha'(iy)=w_1(0,-y)+\phi(-iy)
+    \end{equation}
+equation (\ref{A}) + (\ref{B}), we can get
+    \begin{equation}
+    2\alpha(iy)-2iy\alpha'(iy)=w_1(0,-y)+\phi(iy)+\phi(-iy)
+    \end{equation}
+we set $iy=z$, then we can get
+    \begin{equation}
+    2\alpha(z)-2z\alpha'(z)=w_1(0,iz)+\phi(z)+\phi(-z)
+    \end{equation}
+Rewrite it as
+    \begin{equation}
+   \alpha'(z)-\frac{1}{z}\alpha(z)=-\frac{1}{2z}w_1(0,iz)-\frac{1}{2z}\phi(z)-\frac{1}{2z}\phi(-z)
+    \end{equation}
+Because it is a nonhomogeneous ODE, we can use the method of variation of parameters, then we get
+    \begin{equation}
+    \alpha(z)=z\bigg[c-\frac{1}{2}\int{\bigg(\frac{1}{z^2}w_1(0,iz)+\frac{1}{z^2}\phi(z)+\frac{1}{z^2}\phi(-z)\bigg)}dz\bigg]
+    \end{equation}
+Letting $\phi(z)=z^2 \varphi'(z)$ , then we get
+    \begin{equation}\label{H}
+    \alpha(z)=z\bigg[c-\frac{1}{2}\int{\frac{1}{z^2}w_1(0,iz)}dz-\frac{1}{2}\varphi(z)+\frac{1}{2}\varphi(-z)\bigg]
+    \end{equation}
+Then we can get the expression of $\beta(z)$ .
+    \begin{equation}\label{I}
+    \beta(z)=ibz\varphi'(z)-(ib-z)\big[c-\frac{1}{2}\int{\frac{1}{z^2}w_1(0,iz)}dz\big]-(ib-z)[-\frac{1}{2}\varphi(z)+\frac{1}{2}\varphi(-z)]
+    \end{equation}
+
+\section{solution}
+
+Assuming $w_2(z)=\frac{1}{2}\int\frac{1}{z^2}w_1(0,iz)dz$
+then equations (\ref{H}) and (\ref{I}) will be written as
+    \begin{equation}\label{J}
+    \left\{{\begin{array}{*{20}{l}}
+    \alpha(z)=z\big[c-w_2(z)-\frac{1}{2}\varphi(z)+\frac{1}{2}\varphi(-z)\big]\\
+    \beta(z)=ibz\varphi'(z)-(ib-z)\big[c-w_2(z)\big]-(ib-z)[-\frac{1}{2}\varphi(z)+\frac{1}{2}\varphi(-z)]
+    \end{array}}\right.
+    \end{equation}
+We know that $\alpha'(z)=\frac{1}{z}\alpha(z)-\frac{1}{2z}w_1(0,iz)-\frac{1}{2z}\phi(z)-\frac{1}{2z}\phi(-z)$
+
+equations (\ref{K}) and (\ref{J}) imply that (making a careful simplification)
+\begin{equation}\label{L}
+    \begin{split}
+    w(x,y)&=w_1(x,y)+x\big(c-w_2(x+iy)\big)-x\big(c-w_2(x-iy)\big)+\frac{iy}{x-iy}w_1(0,i(x-iy))\\
+    &-\frac{x}{2}\big(\varphi(x+iy)-\varphi(-x-iy)\big)+\frac{x}{2}\big(\varphi(x-iy)-\varphi(-x+iy)\big)\\
+    &+iy(x+iy)\varphi'(x+iy)+iy(x-iy)\varphi'(-x+iy)
+    \end{split}
+\end{equation}
+
+
+
+
+
+%\section{$\frac{\partial w}{\partial x}(0,y)=0$}
+%For this boundary condition, we have
+%   \begin{equation}\label{C}
+%    \frac{\partial w}{\partial x}(0,y)=\frac{\partial w_1}{\partial %x}(0,y)+(1-\frac{y}{b})\big[\alpha'(iy)-\alpha'(-iy)\big]+\frac{y}{b}\big[\beta'(iy)-\beta'(-iy)\big]-2iy\alpha''(-iy)=0
+%    \end{equation}
+%Equation (\ref{A}) imply that
+%
+%    \begin{equation}\label{D}
+%    (1-\frac{y}{b})\alpha'(iy)+\frac{y}{b}\beta'(iy)=\phi'(iy)+\frac{1}{ib}\alpha(iy)-\frac{1}{ib}\beta(iy)
+%    \end{equation}
+%Equation (\ref{C}) and (\ref{D}) imply that
+%
+%    \begin{equation}
+%    %\phi'(iy)+\frac{1}{ib}\alpha(iy)-\frac{1}{ib}\beta(iy)-(1-\frac{y}{b})\alpha'(-iy)-\frac{y}{b}\beta'(-iy)-2iy\alpha''(-iy)=-\frac{\partial %w_1}{\partial x}(0,y)
+%    \end{equation}
+%Rewrite it
+%    \begin{equation}\label{E}
+%    (1-\frac{y}{b})\alpha'(-iy)+\frac{y}{b}\beta'(-iy)=\frac{\partial w_1}{\partial %x}(0,y)+\phi'(iy)+\frac{1}{ib}\alpha(iy)-\frac{1}{ib}\beta(iy)-2iy\alpha''(-iy)
+%    \end{equation}
+%Replace $y$ by $-y$ in the previous equation, then we can get
+%    \begin{equation}\label{F}
+%    (1+\frac{y}{b})\alpha'(iy)-\frac{y}{b}\beta'(iy)=\frac{\partial w_1}{\partial %x}(0,-y)+\phi'(-iy)+\frac{1}{ib}\alpha(-iy)-\frac{1}{ib}\beta(-iy)+2iy\alpha''(iy)
+%    \end{equation}
+%Equation (\ref{D})+(\ref{F})
+%    \begin{equation}\label{G}
+%    2\alpha'(iy)=\frac{\partial w_1}{\partial %x}(0,-y)+\phi'(iy)+\phi'(-iy)+\frac{1}{ib}[\alpha(iy)+\alpha(-iy)]-\frac{1}{ib}[\beta(iy)+\beta(-iy)]+2iy\alpha''(iy)
+%    \end{equation}
+
+
+
+\end{document} 

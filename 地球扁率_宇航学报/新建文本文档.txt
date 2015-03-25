@@ -1,0 +1,12 @@
+
+地球扁率影响下弹道导弹命中精度的补偿方法
+王定文，高普云
+（国防科技大学 航天与材料工程学院，长沙 420073）
+摘要 分析了由于地球扁率J2项带来的一阶扰动对弹道导弹自由段弹道的影响。计算表明，此影响产生的扰动引力导致的落点偏差不可忽略。偏差的大小与关机点参数有密切联系。提出了修正此偏差的一种迭代方法。在MATLAB上的数值模拟显示了该方法的优越性和有效性。
+关键词：弹道导弹；J2项；扰动引力；落点偏差；迭代法
+中图分类号：V412.1	                              文献标识码：A
+The Compensation Method for The Hit Accuracy of Ballistic Missile considering The Earth’s Oblateness
+WANG Ding-wen, GAO Pu-yun
+(College of Aerospace and Material Engineering, National University of Defense Technology, Changsha 410073, China)
+Abstract:  The effect of the first order secular perturbation due to the zonal harmonic J2 of the earth’s oblateness in ballistic missiles’(BM) free flight trajectory problem is analyzed. Calculations show that the deviation of the targeted impact point because of disturbing gravitation is remarkable. The magnitude of the deviation is close related to the condition of the burnout point. An iterative method to adjust the deviation is established. Numerical simulations in MATLAB show its advantages and effectiveness.
+Key words：Ballistic missiles; Zonal harmonic J2; disturbing gravitation; impact point deviation; Iterative method 

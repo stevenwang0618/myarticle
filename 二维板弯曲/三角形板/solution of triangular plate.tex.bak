@@ -1,0 +1,24 @@
+\documentclass[a4paper]{article}      % The type of the document.
+\usepackage{latexsym,bm,amsthm,amsmath,fancyhdr}
+\setlength{\voffset}{-15.4mm}
+\setlength{\textwidth}{150mm}
+\title{The exact solution of right-angled triangular plate by solving functional equations}% The title and author of the document. 
+
+
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+The lateral deflection in plain-plate problem is described by the equilibrium equation
+    \begin{equation}\label{equation 1}                                       %Equation(1)
+    \frac{\partial^{4}w}{\partial x^{4}}+ 2\frac{\partial^{4}w}{\partial x^{2} \partial y^{2}}+\frac{\partial^{4}w}{\partial y^{4}}=p(x,y)
+    \end{equation}
+where $ p(x,y)$ is a continuously distributed lateral load.
+The general solution of the partial Equation (\ref{equation 1}) is given by
+    \begin{equation}\label{equation 2}                                       %Equation(2)
+    w(x,y)=w_{0}(x,y)+\varphi_{1}(x+iy)+\varphi_{2}(x-iy)+x[\psi_{1}(x+iy)+\psi_{2}(x-iy)]
+    \end{equation}
+where $w_{0}(x,y)$ is a particular solution of Equation (\ref{equation 1}) and $\varphi_{1}$,$\varphi_{2}$,$\psi_{1}$,$\psi_{2}$ are four arbitrary functions. 
+
+
